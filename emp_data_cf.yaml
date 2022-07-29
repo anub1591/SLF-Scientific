@@ -1,0 +1,39 @@
+Parameters:
+  edhPlatformEnvironment:
+    Type: 'AWS::SSM::Parameter::Value<String>'
+    Description: Environment
+    Default: emp_environment
+    ConstraintDescription: must specify nonprod, prod or test.
+    MinLength: 1
+  edhTenantAppTagValues:
+    Type: 'AWS::SSM::Parameter::Value<List<String>>'
+    Description: Application Tag Values.
+    Default: emp_tags
+    MinLength: 1
+  S3BucketName:
+    Description: S3 Bucket for the application
+    Type: String
+
+Resources:
+ empData:
+  Type: AWS::Glue::Job
+  Properties:
+   Command:
+          Name: glueetl
+          PythonVersion: 3
+          ScriptLocation: !Join ['', ['s3://', !Ref S3BucketName , '.', !Ref edhPlatformEnvironment, '/script']]
+   DefaultArguments:
+          "--outputPath" : !Join ['', ['s3://', !Ref S3BucketName , '.', !Ref edhPlatformEnvironment, '/output']]
+          "--job-bookmark-option": "job-bookmark-disable"
+          "--TempDir" : !Join ['', ['s3://', !Ref S3BucketName , '.', !Ref edhPlatformEnvironment, '/temp']]
+   GlueVersion: "2.0"
+   MaxRetries: 0
+   Timeout: 2880
+   LogUri: !Join ['', ['s3://', !Ref S3BucketName , '.', !Ref edhPlatformEnvironment, '/logs']]
+   Name: emp_data_table
+   Description: "employees date"
+   Role: !Sub "arn:aws:iam::${AWS::AccountId}:role/emp_"
+   ExecutionProperty:
+    MaxConcurrentRuns: 1
+   Tags: {}
+
