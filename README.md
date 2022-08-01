@@ -1,7 +1,7 @@
 SLF-Scientific
 
-# The assignment has 3 part:
+The assignment has 3 part:
 
-# * Section 1 (include file Section 1.docx)
-# * Section 2 (include files ETLscript.py, and emp_data_cf.yaml)
-# * Section 3 (include files Part 3 assignment.ipynb, Report.docx, app, model.pkl, data.json, prediction.json, wine.data.txt)
+* Section 1 (include file Section 1.docx)
+* Section 2 (include files ETLscript.py, and emp_data_cf.yaml)
+* Section 3 (include files Part 3 assignment.ipynb, Report.docx, app, model.pkl, data.json, prediction.json, wine.data.txt)
