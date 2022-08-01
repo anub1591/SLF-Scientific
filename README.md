@@ -1,4 +1,4 @@
-# SLF-Scientific
+SLF-Scientific
 
 # The assignment has 3 part:
 
